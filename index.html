@@ -1,11 +1,235 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>我的第一个 GitHub Pages</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>coder guan 个人主页</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        /* 基础样式和背景 */
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #0d1a2f; 
+            color: #00ffaa; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: auto; 
+        }
+
+        /* 核心容器 */
+        .nexus-container {
+            background: rgba(0, 0, 0, 0.5); 
+            border: 2px solid #00ffaa; 
+            box-shadow: 0 0 20px #00ffaa, 0 0 5px #00ffaa inset; 
+            border-radius: 10px;
+            padding: 40px 60px;
+            max-width: 900px; 
+            width: 90%;
+            animation: fadeIn 1s ease-out forwards;
+            position: relative;
+            z-index: 10;
+            margin: 30px 0; 
+        }
+
+        /* 标题和身份 */
+        .nexus-header h1 {
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #00ffaa;
+            letter-spacing: 5px;
+        }
+        .nexus-header h2 {
+            font-size: 1.2em;
+            color: #ff55aa; 
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* 介绍内容 */
+        .nexus-content p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #d1ffea;
+            text-align: left;
+        }
+        
+        /* 技能条 */
+        .skill-section {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        .skill-bar-container {
+            margin-bottom: 15px;
+        }
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        .bar-outer {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            height: 10px;
+            overflow: hidden;
+            border: 1px solid #00ffaa50;
+        }
+        .bar-inner {
+            height: 100%;
+            background-color: #00ffaa;
+            transition: width 1s ease-out;
+            border-radius: 5px;
+        }
+
+        /* 时间轴 */
+        .timeline-section {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline-section::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .timeline-item {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '●';
+            position: absolute;
+            left: -24px;
+            top: 0;
+            color: #ff55aa;
+            font-size: 1.2em;
+            text-shadow: 0 0 5px #ff55aa;
+        }
+        .timeline-date {
+            font-size: 0.9em;
+            color: #00ffaa;
+            margin-bottom: 5px;
+        }
+        .timeline-title {
+            font-size: 1.3em;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        .timeline-desc {
+            font-size: 1em;
+            color: #d1ffea;
+        }
+        
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* 链接按钮 */
+        .btn-link {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 10px;
+            border: 2px solid #ff55aa;
+            border-radius: 50px;
+            color: #ff55aa;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.4s ease;
+        }
+        .btn-link:hover {
+            background-color: #ff55aa;
+            color: #0d1a2f;
+            box-shadow: 0 0 15px #ff55aa;
+        }
+    </style>
 </head>
 <body>
-    <h1>欢迎来到我的免备案网站！</h1>
-    <p>这个页面是使用 GitHub Pages 免费托管的。</p>
+    <div class="nexus-container">
+        <div class="nexus-header">
+            <h1>Nexus Core</h1>
+            <h2>Full-Stack Developer | Ethan Chen (陈以然)</h2>
+        </div>
+        
+        <div class="nexus-content">
+            <h3>// 个人简介 (System_Status: Online)</h3>
+            <p>
+                专注于 **Java/Spring Cloud** 后端和 **Vue.js** 前端开发的资深全栈工程师，拥有 **5年** 互联网金融和电商行业经验。我热衷于使用 DDD（领域驱动设计）和微服务架构来解决高并发、高可用的分布式系统挑战。我的目标是交付性能卓越、代码优雅的完整解决方案。期待在技术交流中共同成长。
+            </p>
+        </div>
+
+        <div class="skill-section">
+            <h3>// 核心技能树 (Skill_Matrix_v2.1)</h3>
+            
+            <div class="skill-bar-container">
+                <div class="skill-name"><span>Java / Spring Cloud / Microservices</span><span>95%</span></div>
+                <div class="bar-outer"><div class="bar-inner" style="width: 95%;"></div></div>
+            </div>
+            
+            <div class="skill-bar-container">
+                <div class="skill-name"><span>Vue.js / Vite / TypeScript</span><span>85%</span></div>
+                <div class="bar-outer"><div class="bar-inner" style="width: 85%;"></div></div>
+            </div>
+
+            <div class="skill-bar-container">
+                <div class="skill-name"><span>MySQL / Redis / MongoDB</span><span>90%</span></div>
+                <div class="bar-outer"><div class="bar-inner" style="width: 90%;"></div></div>
+            </div>
+
+            <div class="skill-bar-container">
+                <div class="skill-name"><span>DevOps (K8s/Docker/Jenkins)</span><span>75%</span></div>
+                <div class="bar-outer"><div class="bar-inner" style="width: 75%;"></div></div>
+            </div>
+            
+            <div class="skill-bar-container">
+                <div class="skill-name"><span>系统设计 / 架构优化</span><span>88%</span></div>
+                <div class="bar-outer"><div class="bar-inner" style="width: 88%;"></div></div>
+            </div>
+        </div>
+
+        <div class="timeline-section">
+            <h3>// 经历时间轴 (Log_History: Operational)</h3>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2023.08 - 至今</div>
+                <div class="timeline-title">资深架构工程师 | 腾飞科技 (Flightech)</div>
+                <div class="timeline-desc">负责核心交易系统的高并发优化，使用 **Sentinel** 和 **Nacos** 重构了微服务架构，成功将系统 QPS 提升 60%，并主导了 DDD 落地实施。</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2021.03 - 2023.07</div>
+                <div class="timeline-title">全栈开发工程师 | 鲸鱼电商 (WhaleEcom)</div>
+                <div class="timeline-desc">主导开发了用户数据分析平台，前端采用 **Vue 3** 配合 **TypeScript**，后端使用 Java/Spring Boot 快速实现 **RESTful API**。负责前后端接口联调与性能测试。</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2019.09 - 2021.02</div>
+                <div class="timeline-title">初级软件工程师 | 迅捷科技 (Fast Solutions)</div>
+                <div class="timeline-desc">参与公司内部 CRM 系统的维护与新功能开发，积累了扎实的 Java 基础和 MySQL 数据库优化经验。</div>
+            </div>
+        </div>
+
+        <div class="nexus-footer">
+            <a href="https://github.com/您的GitHub用户名" target="_blank" class="btn-link">访问 GitHub</a>
+            <a href="https://您的用户名.github.io/您的Vue项目仓库名" class="btn-link">我的项目案例</a>
+        </div>
+    </div>
 </body>
 </html>
