@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家庭智慧用药与健康助手 - 原型演示</title>
+    <!-- 引入 Tailwind CSS 用于快速布局 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 FontAwesome 图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 简单的过渡动画 */
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* 关怀模式专用：超大字体类 */
+        .care-text-huge { font-size: 3rem; line-height: 1; }
+        .care-text-large { font-size: 1.5rem; }
+        .care-btn { height: 120px; font-size: 2rem; border-radius: 20px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans h-screen overflow-hidden">
+
+    <!-- 全局应用容器 -->
+    <div id="app" class="h-full w-full relative">
+
+        <!-- ========================================== -->
+        <!-- 1. 登录页面 (Login View)                   -->
+        <!-- ========================================== -->
+        <div id="view-login" class="h-full flex items-center justify-center bg-blue-50 fade-in">
+            <div class="bg-white p-10 rounded-2xl shadow-xl w-full max-w-md text-center">
+                <div class="mb-6 text-blue-600">
+                    <i class="fa-solid fa-house-medical fa-4x"></i>
+                </div>
+                <h1 class="text-2xl font-bold mb-2">家庭智慧健康管家</h1>
+                <p class="text-gray-500 mb-8">一个账号，守护全家</p>
+                
+                <div class="space-y-4">
+                    <input type="text" value="13800138000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="请输入家庭手机号">
+                    <input type="password" value="123456" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="密码">
+                    <button onclick="switchView('view-select')" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold text-lg">
+                        登 录
+                    </button>
+                </div>
+                <p class="mt-4 text-sm text-gray-400">忘记密码？ | 注册新家庭</p>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 2. 成员选择页面 (Profile Selection View)   -->
+        <!-- ========================================== -->
+        <div id="view-select" class="h-full flex flex-col items-center justify-center bg-gray-100 hidden fade-in">
+            <h2 class="text-3xl font-bold mb-10 text-gray-700">👋 下午好，请选择您的身份</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-4xl px-4">
+                <!-- 爷爷 (关怀模式) -->
+                <div onclick="enterApp('elder')" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition cursor-pointer text-center border-b-4 border-green-500">
+                    <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-4xl">
+                        <i class="fa-solid fa-person-cane"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">爷爷</h3>
+                    <span class="inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded mt-2">关怀模式</span>
+                </div>
+
+                <!-- 奶奶 (关怀模式) -->
+                <div onclick="enterApp('elder')" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition cursor-pointer text-center border-b-4 border-green-500">
+                    <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-4xl">
+                        <i class="fa-solid fa-person-dress"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">奶奶</h3>
+                    <span class="inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded mt-2">关怀模式</span>
+                </div>
+
+                <!-- 爸爸 (标准模式 + Admin) -->
+                <div onclick="enterApp('admin')" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition cursor-pointer text-center border-b-4 border-blue-500">
+                    <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-4xl">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">爸爸</h3>
+                    <div class="flex justify-center gap-2 mt-2">
+                        <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">标准</span>
+                        <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded"><i class="fa-solid fa-crown"></i> 管理员</span>
+                    </div>
+                </div>
+
+                <!-- 妈妈 (标准模式) -->
+                <div onclick="enterApp('standard')" class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition cursor-pointer text-center border-b-4 border-blue-500">
+                    <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-pink-100 flex items-center justify-center text-pink-500 text-4xl">
+                        <i class="fa-solid fa-user-nurse"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">妈妈</h3>
+                    <span class="inline-block bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded mt-2">标准模式</span>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-gray-400 cursor-pointer hover:text-gray-600" onclick="switchView('view-login')">
+                <i class="fa-solid fa-arrow-left"></i> 返回登录页
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 3. 👴 关怀模式 (Elder / Care Mode)        -->
+        <!-- ========================================== -->
+        <div id="view-elder" class="h-full flex flex-col bg-green-50 hidden fade-in relative">
+            <!-- 顶部状态栏 -->
+            <div class="bg-white p-6 flex justify-between items-center shadow-sm">
+                <div class="flex items-center gap-4">
+                    <!-- 纯CSS头像 -->
+                    <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-3xl border-2 border-green-500">
+                        <i class="fa-solid fa-person-cane"></i>
+                    </div>
+                    <div>
+                        <div class="text-gray-500 text-lg">当前用户</div>
+                        <div class="text-3xl font-bold text-gray-800">爷爷</div>
+                    </div>
+                </div>
+                <button onclick="switchView('view-select')" class="bg-gray-200 px-6 py-3 rounded-xl text-xl font-bold text-gray-600">
+                    <i class="fa-solid fa-right-from-bracket"></i> 退出
+                </button>
+            </div>
+
+            <!-- 核心内容区 -->
+            <div class="flex-1 p-6 flex flex-col items-center justify-center text-center">
+                <div class="mb-8">
+                    <div class="text-2xl text-gray-500 mb-2">2023年11月20日 星期三</div>
+                    <div class="care-text-huge font-bold text-gray-800">下午 14:30</div>
+                </div>
+
+                <!-- 任务卡片 -->
+                <div class="bg-white w-full max-w-2xl rounded-3xl shadow-lg p-8 mb-8 border-l-8 border-yellow-400">
+                    <h2 class="text-3xl font-bold mb-6 text-left flex items-center">
+                        <i class="fa-solid fa-sun text-yellow-500 mr-4"></i> 午餐后服药
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between bg-gray-50 p-4 rounded-xl">
+                            <div class="flex items-center gap-4">
+                                <i class="fa-solid fa-pills text-4xl text-blue-500"></i>
+                                <div class="text-left">
+                                    <div class="text-2xl font-bold">阿司匹林</div>
+                                    <div class="text-xl text-gray-500">2 粒</div>
+                                </div>
+                            </div>
+                            <i class="fa-regular fa-circle text-4xl text-gray-300"></i>
+                        </div>
+                        <div class="flex items-center justify-between bg-gray-50 p-4 rounded-xl">
+                            <div class="flex items-center gap-4">
+                                <i class="fa-solid fa-capsules text-4xl text-orange-500"></i>
+                                <div class="text-left">
+                                    <div class="text-2xl font-bold">降压药</div>
+                                    <div class="text-xl text-gray-500">1 片</div>
+                                </div>
+                            </div>
+                            <i class="fa-regular fa-circle text-4xl text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 超大打卡按钮 -->
+                <button onclick="alert('🎉 打卡成功！真棒！\n（语音播报：已完成服药，库存已扣减）')" class="care-btn bg-green-500 text-white w-full max-w-2xl shadow-green-300 shadow-xl hover:bg-green-600 active:scale-95 transition flex items-center justify-center gap-4">
+                    <i class="fa-solid fa-check-circle"></i> 我已服药
+                </button>
+            </div>
+
+            <!-- 底部紧急按钮 -->
+            <div class="p-6 text-center">
+                <button class="bg-red-100 text-red-600 px-8 py-4 rounded-full text-xl font-bold hover:bg-red-200">
+                    <i class="fa-solid fa-phone-volume"></i> 紧急呼叫家人
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 4. 👨‍👩‍👧 标准/管理模式 (Standard / Admin Mode) -->
+        <!-- ========================================== -->
+        <div id="view-standard" class="h-full flex hidden fade-in bg-gray-100">
+            
+            <!-- 侧边栏 -->
+            <div class="w-64 bg-white shadow-lg flex flex-col">
+                <div class="p-6 border-b">
+                    <div class="flex items-center gap-3 text-blue-600 font-bold text-xl">
+                        <i class="fa-solid fa-house-medical"></i> 健康管家
+                    </div>
+                </div>
+                <nav class="flex-1 p-4 space-y-2">
+                    <div class="text-xs text-gray-400 font-bold uppercase ml-2 mt-2 mb-1">个人中心</div>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-600 rounded-lg font-medium">
+                        <i class="fa-solid fa-list-check w-5"></i> 工作台
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg">
+                        <i class="fa-solid fa-chart-line w-5"></i> 我的健康
+                    </a>
+                    
+                    <div class="text-xs text-gray-400 font-bold uppercase ml-2 mt-6 mb-1">家庭管理</div>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg">
+                        <i class="fa-solid fa-users-viewfinder w-5"></i> 家庭监控
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg">
+                        <i class="fa-solid fa-box-open w-5"></i> 智慧药箱
+                    </a>
+                    
+                    <!-- 仅管理员可见 -->
+                    <div id="admin-menu" class="hidden">
+                        <div class="text-xs text-gray-400 font-bold uppercase ml-2 mt-6 mb-1 text-purple-500">Admin 专区</div>
+                        <a href="#" class="flex items-center gap-3 px-4 py-3 text-purple-700 bg-purple-50 rounded-lg border border-purple-100">
+                            <i class="fa-solid fa-gears w-5"></i> 系统设置
+                        </a>
+                    </div>
+                </nav>
+                <div class="p-4 border-t">
+                    <button onclick="switchView('view-select')" class="flex items-center gap-2 text-gray-500 hover:text-red-500 transition w-full px-2">
+                        <i class="fa-solid fa-right-from-bracket"></i> 切换账号
+                    </button>
+                </div>
+            </div>
+
+            <!-- 主内容区 -->
+            <div class="flex-1 flex flex-col overflow-hidden">
+                <!-- 顶栏 -->
+                <div class="bg-white h-16 border-b flex items-center justify-between px-8">
+                    <h2 class="font-bold text-gray-700 text-lg">工作台 Dashboard</h2>
+                    <div class="flex items-center gap-4">
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm shadow hover:bg-blue-700">
+                            <i class="fa-solid fa-camera"></i> OCR 录药
+                        </button>
+                        <!-- 纯CSS头像 -->
+                        <div class="flex items-center gap-2 cursor-pointer bg-gray-100 px-3 py-1 rounded-full">
+                            <div id="std-avatar-container" class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <span id="std-name" class="font-bold text-sm text-gray-700">用户</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 内容滚动区 -->
+                <div class="flex-1 overflow-y-auto p-8">
+                    
+                    <!-- 第一行：我的任务 + 家庭概况 -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                        <!-- 左侧：我的今日任务 (Me) -->
+                        <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-800 mb-4 flex justify-between">
+                                <span>📋 我的今日待办</span>
+                                <span class="text-sm text-blue-500 cursor-pointer">查看全部</span>
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-100">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-blue-200 text-blue-700 w-10 h-10 rounded-lg flex items-center justify-center font-bold">08:00</div>
+                                        <div>
+                                            <div class="font-bold text-gray-800">复合维生素</div>
+                                            <div class="text-xs text-gray-500">1 粒 · 饭后</div>
+                                        </div>
+                                    </div>
+                                    <button class="text-sm bg-white border border-gray-200 px-3 py-1 rounded text-gray-600 hover:text-green-600 hover:border-green-500">
+                                        打卡
+                                    </button>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 opacity-60">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-gray-200 text-gray-500 w-10 h-10 rounded-lg flex items-center justify-center font-bold line-through">07:00</div>
+                                        <div>
+                                            <div class="font-bold text-gray-800 line-through">晨跑 3公里</div>
+                                            <div class="text-xs text-gray-500">已完成</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-green-500 text-sm"><i class="fa-solid fa-check"></i> 完成</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 右侧：家庭监控 (Family) -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-800 mb-4">👀 家人实时动态</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center border border-green-200 text-xs">
+                                            <i class="fa-solid fa-person-cane"></i>
+                                        </div>
+                                        <span class="text-sm font-bold">爷爷</span>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded">已服药</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center border border-green-200 text-xs">
+                                            <i class="fa-solid fa-person-dress"></i>
+                                        </div>
+                                        <span class="text-sm font-bold">奶奶</span>
+                                    </div>
+                                    <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded animate-pulse">⚠️ 漏服 (午)</span>
+                                </div>
+                                <div class="mt-4 pt-4 border-t">
+                                    <h4 class="text-xs font-bold text-gray-400 uppercase mb-2">系统消息</h4>
+                                    <div class="text-xs text-yellow-600 bg-yellow-50 p-2 rounded flex gap-2">
+                                        <i class="fa-solid fa-triangle-exclamation mt-0.5"></i>
+                                        <span>阿司匹林库存仅剩 2 天，请及时补货。</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二行：数据图表 (模拟 ECharts) -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-800 mb-4">📈 爷爷 - 近七日血压趋势 (AI 分析)</h3>
+                        <div class="h-48 bg-gray-50 rounded-lg flex items-end justify-between px-10 pb-4 border-b border-l border-gray-300 relative">
+                            <!-- 模拟折线 -->
+                            <div class="absolute top-10 left-10 right-10 h-0.5 bg-gray-200 border-t border-dashed border-red-300"></div>
+                            <div class="text-xs absolute top-6 right-2 text-red-300">高压警戒线 140</div>
+                            
+                            <!-- 模拟柱状数据 -->
+                            <div class="w-8 bg-blue-300 h-24 rounded-t hover:bg-blue-400 transition relative group">
+                                <span class="absolute -top-6 left-0 text-xs hidden group-hover:block bg-black text-white p-1 rounded">120</span>
+                            </div>
+                            <div class="w-8 bg-blue-300 h-28 rounded-t hover:bg-blue-400 transition"></div>
+                            <div class="w-8 bg-blue-300 h-20 rounded-t hover:bg-blue-400 transition"></div>
+                            <div class="w-8 bg-red-400 h-40 rounded-t hover:bg-red-500 transition relative">
+                                <span class="absolute -top-8 -left-4 text-xs bg-red-100 text-red-600 px-2 py-1 rounded shadow font-bold">145!</span>
+                            </div>
+                            <div class="w-8 bg-blue-300 h-32 rounded-t hover:bg-blue-400 transition"></div>
+                            <div class="w-8 bg-blue-300 h-28 rounded-t hover:bg-blue-400 transition"></div>
+                            <div class="w-8 bg-blue-300 h-26 rounded-t hover:bg-blue-400 transition"></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-purple-50 text-purple-700 text-sm rounded-lg">
+                            <i class="fa-solid fa-robot mr-1"></i> <strong>AI 医生建议：</strong> 周四出现一次血压异常（145/95），经查该日漏服降压药。建议设置强提醒，并注意低盐饮食。
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 简单的视图切换逻辑
+        function switchView(viewId) {
+            // 隐藏所有视图
+            ['view-login', 'view-select', 'view-elder', 'view-standard'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            // 显示目标视图
+            document.getElementById(viewId).classList.remove('hidden');
+        }
+
+        // 进入应用逻辑 (模拟角色判断)
+        function enterApp(role) {
+            if (role === 'elder') {
+                // 爷爷/奶奶 -> 关怀模式
+                switchView('view-elder');
+            } else if (role === 'admin') {
+                // 爸爸 -> 标准模式 + Admin菜单
+                // 爸爸颜色：蓝, 图标: fa-user-tie
+                setupStandardView('爸爸', 'fa-user-tie', 'bg-blue-500', true);
+                switchView('view-standard');
+            } else if (role === 'standard') {
+                // 妈妈 -> 标准模式 (无Admin菜单)
+                // 妈妈颜色：粉, 图标: fa-user-nurse
+                setupStandardView('妈妈', 'fa-user-nurse', 'bg-pink-500', false);
+                switchView('view-standard');
+            }
+        }
+
+        // 配置标准视图的内容 (使用FontAwesome图标)
+        function setupStandardView(name, iconClass, bgClass, isAdmin) {
+            document.getElementById('std-name').innerText = name;
+            
+            // 设置头像容器
+            const avatarContainer = document.getElementById('std-avatar-container');
+            avatarContainer.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+            avatarContainer.className = `w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${bgClass}`;
+            
+            const adminMenu = document.getElementById('admin-menu');
+            if (isAdmin) {
+                adminMenu.classList.remove('hidden');
+            } else {
+                adminMenu.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
